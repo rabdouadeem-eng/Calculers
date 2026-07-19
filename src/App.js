@@ -30,6 +30,7 @@ const T = {
     tabs: { loan: "🏦 القروض", bmi: "🏋️ BMI", percent: "🧮 النسب المئوية" },
     loan: {
       title: "حاسبة القروض",
+      desc: "احسب القسط الشهري لأي قرض بسهولة عبر إدخال المبلغ ومدة السداد ونسبة الفائدة السنوية. تساعدك هذه الحاسبة المجانية على معرفة إجمالي المبلغ المدفوع وإجمالي الفائدة قبل التقدم لأي قرض بنكي أو تمويل شخصي أو قرض سيارة.",
       amount: "مبلغ القرض",
       duration: "مدة القرض (أشهر)",
       rate: "نسبة الفائدة السنوية %",
@@ -40,6 +41,7 @@ const T = {
     },
     bmi: {
       title: "حاسبة BMI",
+      desc: "احسب مؤشر كتلة الجسم (BMI) بإدخال وزنك وطولك لمعرفة إذا كنت ضمن الوزن الطبيعي أو تعاني من نقص أو زيادة في الوزن أو السمنة. أداة صحية مجانية ومناسبة للرجال والنساء من جميع الأعمار لمتابعة اللياقة البدنية.",
       weight: "الوزن (كجم)",
       height: "الطول (سم)",
       calc: "احسب BMI",
@@ -51,6 +53,7 @@ const T = {
     },
     percent: {
       title: "حاسبة النسبة المئوية",
+      desc: "احسب النسبة المئوية من أي رقم، أو نسبة التغير (الزيادة أو النقصان) بين قيمتين، أو استخرج الرقم الأصلي انطلاقاً من نسبة معطاة. حاسبة بسيطة ومفيدة للطلاب والمحاسبين وحساب الخصومات اليومية.",
       mode1: "نسبة من رقم",
       mode2: "نسبة التغير",
       mode3: "الرقم الأصلي",
@@ -71,6 +74,7 @@ const T = {
     tabs: { loan: "🏦 Loan", bmi: "🏋️ BMI", percent: "🧮 Percentage" },
     loan: {
       title: "Loan Calculator",
+      desc: "Calculate the monthly payment for any loan by entering the amount, duration, and annual interest rate. This free calculator shows the total amount paid and total interest before you apply for a bank loan, personal financing, or car loan.",
       amount: "Loan Amount",
       duration: "Duration (months)",
       rate: "Annual Interest Rate %",
@@ -81,6 +85,7 @@ const T = {
     },
     bmi: {
       title: "BMI Calculator",
+      desc: "Calculate your Body Mass Index (BMI) by entering your weight and height to find out if you are underweight, normal weight, overweight, or obese. A free health tool suitable for men and women of all ages tracking their fitness.",
       weight: "Weight (kg)",
       height: "Height (cm)",
       calc: "Calculate BMI",
@@ -92,6 +97,7 @@ const T = {
     },
     percent: {
       title: "Percentage Calculator",
+      desc: "Calculate the percentage of any number, the percent change (increase or decrease) between two values, or find the original number from a given percentage. A simple calculator useful for students, accountants, and everyday discount math.",
       mode1: "Percent of Number",
       mode2: "Percent Change",
       mode3: "Original Number",
@@ -129,6 +135,12 @@ const inputStyle = {
   boxSizing: "border-box",
 };
 const labelStyle = { fontSize: 13, color: CONFIG.theme.textMuted, fontWeight: 600 };
+const descStyle = {
+  fontSize: 13,
+  color: CONFIG.theme.textMuted,
+  lineHeight: 1.7,
+  marginBottom: 18,
+};
 const btnStyle = {
   width: "100%",
   padding: 12,
@@ -179,7 +191,8 @@ function LoanCalculator({ t }) {
 
   return (
     <div style={cardStyle}>
-      <h2 style={{ fontSize: 18, marginBottom: 16 }}>{t.loan.title}</h2>
+      <h2 style={{ fontSize: 18, marginBottom: 10 }}>{t.loan.title}</h2>
+      <p style={descStyle}>{t.loan.desc}</p>
       <label style={labelStyle}>{t.loan.amount}</label>
       <input type="number" style={inputStyle} value={amount} onChange={(e) => setAmount(e.target.value)} />
       <label style={labelStyle}>{t.loan.duration}</label>
@@ -238,7 +251,8 @@ function BMICalculator({ t }) {
 
   return (
     <div style={cardStyle}>
-      <h2 style={{ fontSize: 18, marginBottom: 16 }}>{t.bmi.title}</h2>
+      <h2 style={{ fontSize: 18, marginBottom: 10 }}>{t.bmi.title}</h2>
+      <p style={descStyle}>{t.bmi.desc}</p>
       <label style={labelStyle}>{t.bmi.weight}</label>
       <input type="number" style={inputStyle} value={weight} onChange={(e) => setWeight(e.target.value)} />
       <label style={labelStyle}>{t.bmi.height}</label>
@@ -284,7 +298,8 @@ function PercentCalculator({ t }) {
 
   return (
     <div style={cardStyle}>
-      <h2 style={{ fontSize: 18, marginBottom: 16 }}>{t.percent.title}</h2>
+      <h2 style={{ fontSize: 18, marginBottom: 10 }}>{t.percent.title}</h2>
+      <p style={descStyle}>{t.percent.desc}</p>
       <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
         {[1, 2, 3].map((m) => (
           <button
@@ -403,4 +418,5 @@ export default function App() {
       </div>
     </div>
   );
-}
+    }
+      
