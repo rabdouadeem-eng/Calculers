@@ -556,4 +556,7 @@ export default function App() {
         {tab === "bmi" && <BMICalculator t={t} />}
         {tab === "percent" && <PercentCalculator t={t} />}
         {tab === "bmr" && <BMRCalculator t={t} />}
- 
+ </div>
+    </div>
+  );
+}
