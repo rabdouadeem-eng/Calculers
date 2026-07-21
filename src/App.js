@@ -27,7 +27,7 @@ const T = {
     title: "حاسباتي",
     subtitle: "حاسبات مالية وصحية مجانية",
     langBtn: "English",
-    tabs: { loan: "🏦 القروض", bmi: "🏋️ BMI", percent: "🧮 النسب المئوية" },
+    tabs: { loan: "🏦 القروض", bmi: "🏋️ BMI", percent: "🧮 النسب المئوية", bmr: "🔥 السعرات" },
     loan: {
       title: "حاسبة القروض",
       desc: "احسب القسط الشهري لأي قرض بسهولة عبر إدخال المبلغ ومدة السداد ونسبة الفائدة السنوية. تساعدك هذه الحاسبة المجانية على معرفة إجمالي المبلغ المدفوع وإجمالي الفائدة قبل التقدم لأي قرض بنكي أو تمويل شخصي أو قرض سيارة.",
@@ -65,13 +65,35 @@ const T = {
       calc: "احسب",
       result: "النتيجة",
     },
+    bmr: {
+      title: "حاسبة السعرات الحرارية (BMR & TDEE)",
+      desc: "احسب معدل الأيض الأساسي (BMR) والسعرات اليومية المطلوبة (TDEE) للحفاظ على وزنك أو إنقاصه أو زيادته، بناءً على عمرك وطولك ووزنك ومستوى نشاطك البدني.",
+      age: "العمر (سنة)",
+      height: "الطول (سم)",
+      weight: "الوزن (كجم)",
+      gender: "الجنس",
+      male: "ذكر",
+      female: "أنثى",
+      activity: "مستوى النشاط",
+      act1: "خامل (بدون تمارين)",
+      act2: "خفيف (1-3 أيام/أسبوع)",
+      act3: "متوسط (3-5 أيام/أسبوع)",
+      act4: "مرتفع (6-7 أيام/أسبوع)",
+      act5: "شديد (تمارين يومية شاقة)",
+      calc: "احسب السعرات",
+      bmrLabel: "معدل الأيض الأساسي (BMR)",
+      tdeeLabel: "السعرات اليومية (TDEE)",
+      loseLabel: "لإنقاص الوزن",
+      gainLabel: "لزيادة الوزن",
+      unit: "سعرة/يوم",
+    },
   },
   en: {
     dir: "ltr",
     title: "Calculers",
     subtitle: "Free financial & health calculators",
     langBtn: "العربية",
-    tabs: { loan: "🏦 Loan", bmi: "🏋️ BMI", percent: "🧮 Percentage" },
+    tabs: { loan: "🏦 Loan", bmi: "🏋️ BMI", percent: "🧮 Percentage", bmr: "🔥 Calories" },
     loan: {
       title: "Loan Calculator",
       desc: "Calculate the monthly payment for any loan by entering the amount, duration, and annual interest rate. This free calculator shows the total amount paid and total interest before you apply for a bank loan, personal financing, or car loan.",
@@ -109,6 +131,28 @@ const T = {
       calc: "Calculate",
       result: "Result",
     },
+    bmr: {
+      title: "Calorie Calculator (BMR & TDEE)",
+      desc: "Calculate your Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE) to maintain, lose, or gain weight, based on your age, height, weight, and activity level.",
+      age: "Age (years)",
+      height: "Height (cm)",
+      weight: "Weight (kg)",
+      gender: "Gender",
+      male: "Male",
+      female: "Female",
+      activity: "Activity Level",
+      act1: "Sedentary (no exercise)",
+      act2: "Light (1-3 days/week)",
+      act3: "Moderate (3-5 days/week)",
+      act4: "Active (6-7 days/week)",
+      act5: "Very Active (hard daily exercise)",
+      calc: "Calculate Calories",
+      bmrLabel: "Basal Metabolic Rate (BMR)",
+      tdeeLabel: "Daily Calories (TDEE)",
+      loseLabel: "To Lose Weight",
+      gainLabel: "To Gain Weight",
+      unit: "cal/day",
+    },
   },
 };
 
@@ -135,6 +179,18 @@ const inputStyle = {
   boxSizing: "border-box",
 };
 const labelStyle = { fontSize: 13, color: CONFIG.theme.textMuted, fontWeight: 600 };
+const selectStyle = {
+  width: "100%",
+  padding: "10px 14px",
+  borderRadius: 8,
+  border: `1px solid ${CONFIG.theme.border}`,
+  background: "#0B0E13",
+  color: CONFIG.theme.text,
+  fontSize: 15,
+  marginTop: 6,
+  marginBottom: 14,
+  boxSizing: "border-box",
+};
 const descStyle = {
   fontSize: 13,
   color: CONFIG.theme.textMuted,
@@ -359,6 +415,90 @@ function PercentCalculator({ t }) {
 }
 
 // -----------------------------
+// حاسبة السعرات BMR & TDEE / Calorie Calculator
+// -----------------------------
+function BMRCalculator({ t }) {
+  const [age, setAge] = useState(30);
+  const [height, setHeight] = useState(175);
+  const [weight, setWeight] = useState(75);
+  const [gender, setGender] = useState("male");
+  const [activity, setActivity] = useState(1.55);
+  const [result, setResult] = useState(null);
+
+  function calculate() {
+    const A = parseFloat(age);
+    const H = parseFloat(height);
+    const W = parseFloat(weight);
+    if (!A || !H || !W) return;
+    const bmr =
+      gender === "male"
+        ? 10 * W + 6.25 * H - 5 * A + 5
+        : 10 * W + 6.25 * H - 5 * A - 161;
+    const tdee = bmr * parseFloat(activity);
+    setResult({
+      bmr: Math.round(bmr),
+      tdee: Math.round(tdee),
+      lose: Math.round(tdee - 500),
+      gain: Math.round(tdee + 400),
+    });
+  }
+
+  return (
+    <div style={cardStyle}>
+      <h2 style={{ fontSize: 18, marginBottom: 10 }}>{t.bmr.title}</h2>
+      <p style={descStyle}>{t.bmr.desc}</p>
+
+      <label style={labelStyle}>{t.bmr.gender}</label>
+      <select style={selectStyle} value={gender} onChange={(e) => setGender(e.target.value)}>
+        <option value="male">{t.bmr.male}</option>
+        <option value="female">{t.bmr.female}</option>
+      </select>
+
+      <label style={labelStyle}>{t.bmr.age}</label>
+      <input type="number" style={inputStyle} value={age} onChange={(e) => setAge(e.target.value)} />
+
+      <label style={labelStyle}>{t.bmr.height}</label>
+      <input type="number" style={inputStyle} value={height} onChange={(e) => setHeight(e.target.value)} />
+
+      <label style={labelStyle}>{t.bmr.weight}</label>
+      <input type="number" style={inputStyle} value={weight} onChange={(e) => setWeight(e.target.value)} />
+
+      <label style={labelStyle}>{t.bmr.activity}</label>
+      <select style={selectStyle} value={activity} onChange={(e) => setActivity(e.target.value)}>
+        <option value={1.2}>{t.bmr.act1}</option>
+        <option value={1.375}>{t.bmr.act2}</option>
+        <option value={1.55}>{t.bmr.act3}</option>
+        <option value={1.725}>{t.bmr.act4}</option>
+        <option value={1.9}>{t.bmr.act5}</option>
+      </select>
+
+      <button style={btnStyle} onClick={calculate}>{t.bmr.calc}</button>
+
+      {result && (
+        <div style={resultBoxStyle}>
+          <div style={{ marginBottom: 8 }}>
+            <span style={labelStyle}>{t.bmr.bmrLabel}: </span>
+            <strong>{formatNum(result.bmr)} {t.bmr.unit}</strong>
+          </div>
+          <div style={{ marginBottom: 8 }}>
+            <span style={labelStyle}>{t.bmr.tdeeLabel}: </span>
+            <strong style={{ color: CONFIG.theme.accent, fontSize: 20 }}>{formatNum(result.tdee)} {t.bmr.unit}</strong>
+          </div>
+          <div style={{ marginBottom: 8 }}>
+            <span style={labelStyle}>{t.bmr.loseLabel}: </span>
+            <strong style={{ color: CONFIG.theme.red }}>{formatNum(result.lose)} {t.bmr.unit}</strong>
+          </div>
+          <div>
+            <span style={labelStyle}>{t.bmr.gainLabel}: </span>
+            <strong style={{ color: CONFIG.theme.green }}>{formatNum(result.gain)} {t.bmr.unit}</strong>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// -----------------------------
 // التطبيق الرئيسي / Main App
 // -----------------------------
 export default function App() {
@@ -391,7 +531,7 @@ export default function App() {
         </div>
 
         <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
-          {["loan", "bmi", "percent"].map((tb) => (
+          {["loan", "bmi", "percent", "bmr"].map((tb) => (
             <button
               key={tb}
               onClick={() => setTab(tb)}
@@ -415,8 +555,5 @@ export default function App() {
         {tab === "loan" && <LoanCalculator t={t} />}
         {tab === "bmi" && <BMICalculator t={t} />}
         {tab === "percent" && <PercentCalculator t={t} />}
-      </div>
-    </div>
-  );
-    }
-      
+        {tab === "bmr" && <BMRCalculator t={t} />}
+ 
