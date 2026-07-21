@@ -27,7 +27,7 @@ const T = {
     title: "حاسباتي",
     subtitle: "حاسبات مالية وصحية مجانية",
     langBtn: "English",
-    tabs: { loan: "🏦 القروض", bmi: "🏋️ BMI", percent: "🧮 النسب المئوية", bmr: "🔥 السعرات" },
+    tabs: { loan: "🏦 القروض", bmi: "🏋️ BMI", percent: "🧮 النسب المئوية", bmr: "🔥 السعرات", unit: "🔄 تحويل الوحدات" },
     loan: {
       title: "حاسبة القروض",
       desc: "احسب القسط الشهري لأي قرض بسهولة عبر إدخال المبلغ ومدة السداد ونسبة الفائدة السنوية. تساعدك هذه الحاسبة المجانية على معرفة إجمالي المبلغ المدفوع وإجمالي الفائدة قبل التقدم لأي قرض بنكي أو تمويل شخصي أو قرض سيارة.",
@@ -87,13 +87,28 @@ const T = {
       gainLabel: "لزيادة الوزن",
       unit: "سعرة/يوم",
     },
+    unit: {
+      title: "حاسبة تحويل الوحدات",
+      desc: "حوّل بين وحدات الطول والوزن ودرجة الحرارة والمساحة والحجم بسرعة ودقة. اختر الفئة والوحدتين وأدخل القيمة لترى النتيجة فوراً.",
+      category: "الفئة",
+      catLength: "الطول",
+      catWeight: "الوزن",
+      catTemp: "درجة الحرارة",
+      catArea: "المساحة",
+      catVolume: "الحجم",
+      value: "القيمة",
+      from: "من",
+      to: "إلى",
+      result: "النتيجة",
+      swap: "⇄ تبديل",
+    },
   },
   en: {
     dir: "ltr",
     title: "Calculers",
     subtitle: "Free financial & health calculators",
     langBtn: "العربية",
-    tabs: { loan: "🏦 Loan", bmi: "🏋️ BMI", percent: "🧮 Percentage", bmr: "🔥 Calories" },
+    tabs: { loan: "🏦 Loan", bmi: "🏋️ BMI", percent: "🧮 Percentage", bmr: "🔥 Calories", unit: "🔄 Unit Converter" },
     loan: {
       title: "Loan Calculator",
       desc: "Calculate the monthly payment for any loan by entering the amount, duration, and annual interest rate. This free calculator shows the total amount paid and total interest before you apply for a bank loan, personal financing, or car loan.",
@@ -152,6 +167,21 @@ const T = {
       loseLabel: "To Lose Weight",
       gainLabel: "To Gain Weight",
       unit: "cal/day",
+    },
+    unit: {
+      title: "Unit Converter",
+      desc: "Convert between length, weight, temperature, area, and volume units quickly and accurately. Choose a category and units, enter a value, and see the result instantly.",
+      category: "Category",
+      catLength: "Length",
+      catWeight: "Weight",
+      catTemp: "Temperature",
+      catArea: "Area",
+      catVolume: "Volume",
+      value: "Value",
+      from: "From",
+      to: "To",
+      result: "Result",
+      swap: "⇄ Swap",
     },
   },
 };
@@ -219,6 +249,52 @@ const resultBoxStyle = {
 function formatNum(n) {
   if (n == null || isNaN(n)) return "—";
   return new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 }).format(n);
+}
+
+// -----------------------------
+// بيانات تحويل الوحدات / Unit converter data
+// -----------------------------
+const UNIT_DATA = {
+  length: {
+    units: { m: 1, km: 1000, mi: 1609.344, yd: 0.9144, ft: 0.3048, in: 0.0254, cm: 0.01, mm: 0.001 },
+    labels: {
+      ar: { m: "متر", km: "كيلومتر", mi: "ميل", yd: "ياردة", ft: "قدم", in: "بوصة", cm: "سنتيمتر", mm: "مليمتر" },
+      en: { m: "Meter", km: "Kilometer", mi: "Mile", yd: "Yard", ft: "Foot", in: "Inch", cm: "Centimeter", mm: "Millimeter" },
+    },
+  },
+  weight: {
+    units: { kg: 1, g: 0.001, lb: 0.453592, oz: 0.0283495, ton: 1000 },
+    labels: {
+      ar: { kg: "كيلوغرام", g: "غرام", lb: "باوند", oz: "أونصة", ton: "طن" },
+      en: { kg: "Kilogram", g: "Gram", lb: "Pound", oz: "Ounce", ton: "Ton" },
+    },
+  },
+  area: {
+    units: { m2: 1, km2: 1000000, acre: 4046.86, ha: 10000, ft2: 0.092903 },
+    labels: {
+      ar: { m2: "متر مربع", km2: "كيلومتر مربع", acre: "فدان", ha: "هكتار", ft2: "قدم مربع" },
+      en: { m2: "Sq. Meter", km2: "Sq. Kilometer", acre: "Acre", ha: "Hectare", ft2: "Sq. Foot" },
+    },
+  },
+  volume: {
+    units: { L: 1, mL: 0.001, gal: 3.78541, ft3: 28.3168, m3: 1000 },
+    labels: {
+      ar: { L: "لتر", mL: "مليلتر", gal: "غالون", ft3: "قدم مكعب", m3: "متر مكعب" },
+      en: { L: "Liter", mL: "Milliliter", gal: "Gallon", ft3: "Cubic Foot", m3: "Cubic Meter" },
+    },
+  },
+  temperature: {
+    units: { C: null, F: null, K: null },
+    labels: {
+      ar: { C: "مئوية", F: "فهرنهايت", K: "كلفن" },
+      en: { C: "Celsius", F: "Fahrenheit", K: "Kelvin" },
+    },
+  },
+};
+
+function convertTemp(v, from, to) {
+  const c = from === "C" ? v : from === "F" ? ((v - 32) * 5) / 9 : v - 273.15;
+  return to === "C" ? c : to === "F" ? (c * 9) / 5 + 32 : c + 273.15;
 }
 
 // -----------------------------
@@ -499,6 +575,86 @@ function BMRCalculator({ t }) {
 }
 
 // -----------------------------
+// حاسبة تحويل الوحدات / Unit Converter
+// -----------------------------
+function UnitCalculator({ t, lang }) {
+  const categories = ["length", "weight", "temperature", "area", "volume"];
+  const [category, setCategory] = useState("length");
+  const unitKeys = Object.keys(UNIT_DATA[category].units);
+  const [from, setFrom] = useState(unitKeys[0]);
+  const [to, setTo] = useState(unitKeys[1]);
+  const [value, setValue] = useState(1);
+
+  function changeCategory(cat) {
+    setCategory(cat);
+    const keys = Object.keys(UNIT_DATA[cat].units);
+    setFrom(keys[0]);
+    setTo(keys[1]);
+  }
+
+  function swap() {
+    setFrom(to);
+    setTo(from);
+  }
+
+  const catLabelKey = { length: "catLength", weight: "catWeight", temperature: "catTemp", area: "catArea", volume: "catVolume" };
+
+  const result = useMemo(() => {
+    const v = parseFloat(value);
+    if (isNaN(v)) return null;
+    if (category === "temperature") return convertTemp(v, from, to);
+    const factors = UNIT_DATA[category].units;
+    return (v * factors[from]) / factors[to];
+  }, [value, from, to, category]);
+
+  const labels = UNIT_DATA[category].labels[lang];
+
+  return (
+    <div style={cardStyle}>
+      <h2 style={{ fontSize: 18, marginBottom: 10 }}>{t.unit.title}</h2>
+      <p style={descStyle}>{t.unit.desc}</p>
+
+      <label style={labelStyle}>{t.unit.category}</label>
+      <select style={selectStyle} value={category} onChange={(e) => changeCategory(e.target.value)}>
+        {categories.map((c) => (
+          <option key={c} value={c}>{t.unit[catLabelKey[c]]}</option>
+        ))}
+      </select>
+
+      <label style={labelStyle}>{t.unit.value}</label>
+      <input type="number" style={inputStyle} value={value} onChange={(e) => setValue(e.target.value)} />
+
+      <label style={labelStyle}>{t.unit.from}</label>
+      <select style={selectStyle} value={from} onChange={(e) => setFrom(e.target.value)}>
+        {Object.keys(UNIT_DATA[category].units).map((u) => (
+          <option key={u} value={u}>{labels[u]}</option>
+        ))}
+      </select>
+
+      <label style={labelStyle}>{t.unit.to}</label>
+      <select style={selectStyle} value={to} onChange={(e) => setTo(e.target.value)}>
+        {Object.keys(UNIT_DATA[category].units).map((u) => (
+          <option key={u} value={u}>{labels[u]}</option>
+        ))}
+      </select>
+
+      <button style={{ ...btnStyle, background: "transparent", border: `1px solid ${CONFIG.theme.border}`, color: CONFIG.theme.text, marginBottom: 14 }} onClick={swap}>
+        {t.unit.swap}
+      </button>
+
+      {result != null && (
+        <div style={resultBoxStyle}>
+          <span style={labelStyle}>{t.unit.result}: </span>
+          <strong style={{ color: CONFIG.theme.accent, fontSize: 20 }}>
+            {formatNum(result)} {labels[to]}
+          </strong>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// -----------------------------
 // التطبيق الرئيسي / Main App
 // -----------------------------
 export default function App() {
@@ -531,7 +687,7 @@ export default function App() {
         </div>
 
         <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
-          {["loan", "bmi", "percent", "bmr"].map((tb) => (
+          {["loan", "bmi", "percent", "bmr", "unit"].map((tb) => (
             <button
               key={tb}
               onClick={() => setTab(tb)}
@@ -556,7 +712,8 @@ export default function App() {
         {tab === "bmi" && <BMICalculator t={t} />}
         {tab === "percent" && <PercentCalculator t={t} />}
         {tab === "bmr" && <BMRCalculator t={t} />}
- </div>
+        {tab === "unit" && <UnitCalculator t={t} lang={lang} />}
+      </div>
     </div>
   );
 }
