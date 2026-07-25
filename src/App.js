@@ -27,7 +27,7 @@ const T = {
     title: "حاسباتي",
     subtitle: "حاسبات مالية وصحية مجانية",
     langBtn: "English",
-    tabs: { loan: "🏦 القروض", bmi: "🏋️ BMI", percent: "🧮 النسب المئوية", bmr: "🔥 السعرات", unit: "🔄 تحويل الوحدات" },
+    tabs: { loan: "🏦 القروض", bmi: "🏋️ BMI", percent: "🧮 النسب المئوية", bmr: "🔥 السعرات", unit: "🔄 تحويل الوحدات", mortgage: "🏠 الرهن العقاري" },
     loan: {
       title: "حاسبة القروض",
       desc: "احسب القسط الشهري لأي قرض بسهولة عبر إدخال المبلغ ومدة السداد ونسبة الفائدة السنوية. تساعدك هذه الحاسبة المجانية على معرفة إجمالي المبلغ المدفوع وإجمالي الفائدة قبل التقدم لأي قرض بنكي أو تمويل شخصي أو قرض سيارة.",
@@ -102,13 +102,27 @@ const T = {
       result: "النتيجة",
       swap: "⇄ تبديل",
     },
+    mortgage: {
+      title: "حاسبة الرهن العقاري",
+      desc: "احسب القسط الشهري لقرض المنزل (الرهن العقاري) بإدخال سعر المنزل والدفعة الأولى ونسبة الفائدة ومدة القرض. تساعدك على معرفة القسط الشهري وإجمالي الفوائد قبل اتخاذ قرار شراء منزل.",
+      homePrice: "سعر المنزل",
+      downPayment: "الدفعة الأولى",
+      loanAmount: "مبلغ القرض",
+      rate: "نسبة الفائدة السنوية %",
+      term: "مدة القرض (سنوات)",
+      calc: "احسب القسط",
+      monthly: "القسط الشهري",
+      totalInterest: "إجمالي الفوائد",
+      totalPaid: "إجمالي المبلغ المدفوع",
+      downPct: "نسبة الدفعة الأولى",
+    },
   },
   en: {
     dir: "ltr",
     title: "Calculers",
     subtitle: "Free financial & health calculators",
     langBtn: "العربية",
-    tabs: { loan: "🏦 Loan", bmi: "🏋️ BMI", percent: "🧮 Percentage", bmr: "🔥 Calories", unit: "🔄 Unit Converter" },
+    tabs: { loan: "🏦 Loan", bmi: "🏋️ BMI", percent: "🧮 Percentage", bmr: "🔥 Calories", unit: "🔄 Unit Converter", mortgage: "🏠 Mortgage" },
     loan: {
       title: "Loan Calculator",
       desc: "Calculate the monthly payment for any loan by entering the amount, duration, and annual interest rate. This free calculator shows the total amount paid and total interest before you apply for a bank loan, personal financing, or car loan.",
@@ -182,6 +196,20 @@ const T = {
       to: "To",
       result: "Result",
       swap: "⇄ Swap",
+    },
+    mortgage: {
+      title: "Mortgage Calculator",
+      desc: "Calculate your monthly home loan (mortgage) payment by entering the home price, down payment, interest rate, and loan term. Helps you know the monthly payment and total interest before deciding to buy a home.",
+      homePrice: "Home Price",
+      downPayment: "Down Payment",
+      loanAmount: "Loan Amount",
+      rate: "Annual Interest Rate %",
+      term: "Loan Term (years)",
+      calc: "Calculate Payment",
+      monthly: "Monthly Payment",
+      totalInterest: "Total Interest",
+      totalPaid: "Total Amount Paid",
+      downPct: "Down Payment %",
     },
   },
 };
@@ -655,6 +683,123 @@ function UnitCalculator({ t, lang }) {
 }
 
 // -----------------------------
+// حاسبة الرهن العقاري / Mortgage Calculator
+// -----------------------------
+function MortgageCalculator({ t }) {
+  const [homePrice, setHomePrice] = useState(300000);
+  const [downPayment, setDownPayment] = useState(60000);
+  const [rate, setRate] = useState(6.5);
+  const [term, setTerm] = useState(30);
+  const [result, setResult] = useState(null);
+
+  function calculate() {
+    const P = parseFloat(homePrice);
+    const D = parseFloat(downPayment);
+    const n = parseInt(term) * 12;
+    const r = parseFloat(rate) / 100 / 12;
+    const loanAmount = P - D;
+    if (!P || !n || loanAmount <= 0) return;
+    let M;
+    if (r === 0) M = loanAmount / n;
+    else {
+      const factor = Math.pow(1 + r, n);
+      M = (loanAmount * (r * factor)) / (factor - 1);
+    }
+    const total = M * n;
+    setResult({
+      loanAmount,
+      monthly: M,
+      total,
+      interest: total - loanAmount,
+      downPct: P > 0 ? (D / P) * 100 : 0,
+    });
+  }
+
+  return (
+    <div style={cardStyle}>
+      <h2 style={{ fontSize: 18, marginBottom: 10 }}>{t.mortgage.title}</h2>
+      <p style={descStyle}>{t.mortgage.desc}</p>
+      <label style={labelStyle}>{t.mortgage.homePrice}</label>
+      <input type="number" style={inputStyle} value={homePrice} onChange={(e) => setHomePrice(e.target.value)} />
+      <label style={labelStyle}>{t.mortgage.downPayment}</label>
+      <input type="number" style={inputStyle} value={downPayment} onChange={(e) => setDownPayment(e.target.value)} />
+      <label style={labelStyle}>{t.mortgage.rate}</label>
+      <input type="number" style={inputStyle} value={rate} onChange={(e) => setRate(e.target.value)} />
+      <label style={labelStyle}>{t.mortgage.term}</label>
+      <input type="number" style={inputStyle} value={term} onChange={(e) => setTerm(e.target.value)} />
+      <button style={btnStyle} onClick={calculate}>{t.mortgage.calc}</button>
+      {result && (
+        <div style={resultBoxStyle}>
+          <div style={{ marginBottom: 8 }}>
+            <span style={labelStyle}>{t.mortgage.loanAmount}: </span>
+            <strong>{formatNum(result.loanAmount)}</strong>
+          </div>
+          <div style={{ marginBottom: 8 }}>
+            <span style={labelStyle}>{t.mortgage.monthly}: </span>
+            <strong style={{ color: CONFIG.theme.accent, fontSize: 20 }}>{formatNum(result.monthly)}</strong>
+          </div>
+          <div style={{ marginBottom: 8 }}>
+            <span style={labelStyle}>{t.mortgage.totalInterest}: </span>
+            <strong style={{ color: CONFIG.theme.red }}>{formatNum(result.interest)}</strong>
+          </div>
+          <div style={{ marginBottom: 8 }}>
+            <span style={labelStyle}>{t.mortgage.totalPaid}: </span>
+            <strong>{formatNum(result.total)}</strong>
+          </div>
+          <div>
+            <span style={labelStyle}>{t.mortgage.downPct}: </span>
+            <strong>{result.downPct.toFixed(1)}%</strong>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// -----------------------------
+// حاسبات ذات صلة / Related calculators
+// -----------------------------
+const RELATED_CALCS = {
+  loan: ["mortgage", "percent", "bmr"],
+  mortgage: ["loan", "unit", "percent"],
+  bmi: ["bmr", "unit"],
+  bmr: ["bmi", "loan"],
+  percent: ["loan", "unit"],
+  unit: ["mortgage", "percent"],
+};
+
+function RelatedCalculators({ current, t, onSelect }) {
+  const related = RELATED_CALCS[current] || [];
+  if (related.length === 0) return null;
+  return (
+    <div style={{ ...cardStyle, marginTop: -6 }}>
+      <div style={{ fontSize: 13, color: CONFIG.theme.textMuted, marginBottom: 10, fontWeight: 600 }}>
+        {t.dir === "rtl" ? "حاسبات ذات صلة" : "Related calculators"}
+      </div>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        {related.map((key) => (
+          <button
+            key={key}
+            onClick={() => onSelect(key)}
+            style={{
+              padding: "8px 14px",
+              borderRadius: 8,
+              border: `1px solid ${CONFIG.theme.border}`,
+              background: "#0B0E13",
+              color: CONFIG.theme.text,
+              fontSize: 13,
+              cursor: "pointer",
+            }}
+          >
+            {t.tabs[key]}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// -----------------------------
 // التطبيق الرئيسي / Main App
 // -----------------------------
 export default function App() {
@@ -687,7 +832,7 @@ export default function App() {
         </div>
 
         <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
-          {["loan", "bmi", "percent", "bmr", "unit"].map((tb) => (
+          {["loan", "bmi", "percent", "bmr", "unit", "mortgage"].map((tb) => (
             <button
               key={tb}
               onClick={() => setTab(tb)}
@@ -713,6 +858,9 @@ export default function App() {
         {tab === "percent" && <PercentCalculator t={t} />}
         {tab === "bmr" && <BMRCalculator t={t} />}
         {tab === "unit" && <UnitCalculator t={t} lang={lang} />}
+        {tab === "mortgage" && <MortgageCalculator t={t} />}
+
+        <RelatedCalculators current={tab} t={t} onSelect={setTab} />
       </div>
     </div>
   );
