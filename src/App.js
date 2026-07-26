@@ -831,14 +831,14 @@ export default function App() {
           </button>
         </div>
 
-        <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, marginBottom: 20 }}>
           {["loan", "bmi", "percent", "bmr", "unit", "mortgage"].map((tb) => (
             <button
               key={tb}
               onClick={() => setTab(tb)}
               style={{
-                flex: 1,
-                padding: 10,
+                width: "100%",
+                padding: "10px 4px",
                 borderRadius: 8,
                 border: "none",
                 background: tab === tb ? CONFIG.theme.accentDark : CONFIG.theme.card,
@@ -846,6 +846,9 @@ export default function App() {
                 fontSize: 12,
                 fontWeight: 600,
                 cursor: "pointer",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
               }}
             >
               {t.tabs[tb]}
