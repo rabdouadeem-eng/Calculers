@@ -27,7 +27,7 @@ const T = {
     title: "حاسباتي",
     subtitle: "حاسبات مالية وصحية مجانية",
     langBtn: "English",
-    tabs: { loan: "🏦 القروض", bmi: "🏋️ BMI", percent: "🧮 النسب المئوية", bmr: "🔥 السعرات", unit: "🔄 تحويل الوحدات", mortgage: "🏠 الرهن العقاري" },
+    tabs: { loan: "🏦 القروض", bmi: "🏋️ BMI", percent: "🧮 النسب المئوية", bmr: "🔥 السعرات", unit: "🔄 تحويل الوحدات", mortgage: "🏠 الرهن العقاري", pregnancy: "🤰 الحمل", savings: "💰 الادخار", currency: "💱 العملات", vat: "🧾 الضريبة" },
     loan: {
       title: "حاسبة القروض",
       desc: "احسب القسط الشهري لأي قرض بسهولة عبر إدخال المبلغ ومدة السداد ونسبة الفائدة السنوية. تساعدك هذه الحاسبة المجانية على معرفة إجمالي المبلغ المدفوع وإجمالي الفائدة قبل التقدم لأي قرض بنكي أو تمويل شخصي أو قرض سيارة.",
@@ -116,13 +116,59 @@ const T = {
       totalPaid: "إجمالي المبلغ المدفوع",
       downPct: "نسبة الدفعة الأولى",
     },
+    pregnancy: {
+      title: "حاسبة الحمل",
+      desc: "احسبي تاريخ الولادة المتوقع وعدد أسابيع الحمل الحالية بناءً على تاريخ أول يوم من آخر دورة شهرية. حاسبة مجانية تساعدك على متابعة مراحل الحمل الثلاث.",
+      lmp: "تاريخ أول يوم من آخر دورة شهرية",
+      calc: "احسب",
+      dueDate: "تاريخ الولادة المتوقع",
+      weeks: "الأسبوع الحالي من الحمل",
+      trimester: "الثلث الحالي",
+      t1: "الثلث الأول",
+      t2: "الثلث الثاني",
+      t3: "الثلث الثالث",
+      daysLeft: "الأيام المتبقية",
+    },
+    savings: {
+      title: "حاسبة الادخار والفائدة المركبة",
+      desc: "احسب قيمة مدخراتك المستقبلية بناءً على المبلغ الأولي والإيداع الشهري ونسبة الفائدة السنوية ومدة الادخار، باستخدام مبدأ الفائدة المركبة.",
+      principal: "المبلغ الأولي",
+      monthly: "الإيداع الشهري",
+      rate: "نسبة الفائدة السنوية %",
+      years: "مدة الادخار (سنوات)",
+      calc: "احسب الادخار",
+      futureValue: "القيمة المستقبلية",
+      totalDeposited: "إجمالي المبالغ المودعة",
+      totalInterest: "إجمالي الفائدة المكتسبة",
+    },
+    currency: {
+      title: "حاسبة تحويل العملات",
+      desc: "حوّل مبلغاً من عملة إلى أخرى بإدخال سعر الصرف يدوياً. أدخلي آخر سعر صرف تعرفينه للحصول على نتيجة دقيقة، لأن هذه الحاسبة لا تجلب الأسعار مباشرة من الإنترنت.",
+      amount: "المبلغ",
+      rate: "سعر الصرف (1 وحدة = ؟)",
+      calc: "احسب التحويل",
+      result: "النتيجة",
+      swap: "⇄ عكس التحويل",
+    },
+    vat: {
+      title: "حاسبة الضريبة (VAT)",
+      desc: "احسب قيمة الضريبة المضافة على سعر معين، أو استخرج السعر الأصلي قبل الضريبة من سعر يشمل الضريبة بالفعل.",
+      mode1: "إضافة الضريبة",
+      mode2: "استخراج الضريبة",
+      price: "السعر",
+      rate: "نسبة الضريبة %",
+      calc: "احسب",
+      priceBefore: "السعر قبل الضريبة",
+      vatAmount: "قيمة الضريبة",
+      priceAfter: "السعر شامل الضريبة",
+    },
   },
   en: {
     dir: "ltr",
     title: "Calculers",
     subtitle: "Free financial & health calculators",
     langBtn: "العربية",
-    tabs: { loan: "🏦 Loan", bmi: "🏋️ BMI", percent: "🧮 Percentage", bmr: "🔥 Calories", unit: "🔄 Unit Converter", mortgage: "🏠 Mortgage" },
+    tabs: { loan: "🏦 Loan", bmi: "🏋️ BMI", percent: "🧮 Percentage", bmr: "🔥 Calories", unit: "🔄 Unit Converter", mortgage: "🏠 Mortgage", pregnancy: "🤰 Pregnancy", savings: "💰 Savings", currency: "💱 Currency", vat: "🧾 VAT" },
     loan: {
       title: "Loan Calculator",
       desc: "Calculate the monthly payment for any loan by entering the amount, duration, and annual interest rate. This free calculator shows the total amount paid and total interest before you apply for a bank loan, personal financing, or car loan.",
@@ -210,6 +256,52 @@ const T = {
       totalInterest: "Total Interest",
       totalPaid: "Total Amount Paid",
       downPct: "Down Payment %",
+    },
+    pregnancy: {
+      title: "Pregnancy Calculator",
+      desc: "Calculate your estimated due date and current week of pregnancy based on the first day of your last menstrual period. A free calculator to help track the three trimesters.",
+      lmp: "First day of last menstrual period",
+      calc: "Calculate",
+      dueDate: "Estimated Due Date",
+      weeks: "Current Week of Pregnancy",
+      trimester: "Current Trimester",
+      t1: "First Trimester",
+      t2: "Second Trimester",
+      t3: "Third Trimester",
+      daysLeft: "Days Remaining",
+    },
+    savings: {
+      title: "Savings & Compound Interest Calculator",
+      desc: "Calculate your future savings value based on an initial amount, monthly deposit, annual interest rate, and savings duration, using compound interest.",
+      principal: "Initial Amount",
+      monthly: "Monthly Deposit",
+      rate: "Annual Interest Rate %",
+      years: "Duration (years)",
+      calc: "Calculate Savings",
+      futureValue: "Future Value",
+      totalDeposited: "Total Deposited",
+      totalInterest: "Total Interest Earned",
+    },
+    currency: {
+      title: "Currency Converter",
+      desc: "Convert an amount from one currency to another by entering the exchange rate manually. Enter the latest rate you know for an accurate result, since this calculator does not fetch live rates.",
+      amount: "Amount",
+      rate: "Exchange Rate (1 unit = ?)",
+      calc: "Calculate",
+      result: "Result",
+      swap: "⇄ Reverse",
+    },
+    vat: {
+      title: "VAT Calculator",
+      desc: "Calculate the VAT amount on a given price, or extract the original price before tax from a price that already includes VAT.",
+      mode1: "Add VAT",
+      mode2: "Extract VAT",
+      price: "Price",
+      rate: "VAT Rate %",
+      calc: "Calculate",
+      priceBefore: "Price Before VAT",
+      vatAmount: "VAT Amount",
+      priceAfter: "Price Including VAT",
     },
   },
 };
@@ -757,15 +849,244 @@ function MortgageCalculator({ t }) {
 }
 
 // -----------------------------
+// حاسبة الحمل / Pregnancy Calculator
+// -----------------------------
+function PregnancyCalculator({ t }) {
+  const [lmp, setLmp] = useState("");
+  const [result, setResult] = useState(null);
+
+  function calculate() {
+    if (!lmp) return;
+    const lmpDate = new Date(lmp);
+    if (isNaN(lmpDate.getTime())) return;
+    const today = new Date();
+    const dueDate = new Date(lmpDate.getTime() + 280 * 24 * 60 * 60 * 1000);
+    const daysPregnant = Math.floor((today - lmpDate) / (24 * 60 * 60 * 1000));
+    const weeks = Math.floor(daysPregnant / 7);
+    const daysLeft = Math.max(0, Math.ceil((dueDate - today) / (24 * 60 * 60 * 1000)));
+    let trimester = t.pregnancy.t1;
+    if (weeks >= 27) trimester = t.pregnancy.t3;
+    else if (weeks >= 13) trimester = t.pregnancy.t2;
+    setResult({
+      dueDate: dueDate.toLocaleDateString(),
+      weeks: weeks >= 0 ? weeks : 0,
+      trimester,
+      daysLeft,
+    });
+  }
+
+  return (
+    <div style={cardStyle}>
+      <h2 style={{ fontSize: 18, marginBottom: 10 }}>{t.pregnancy.title}</h2>
+      <p style={descStyle}>{t.pregnancy.desc}</p>
+      <label style={labelStyle}>{t.pregnancy.lmp}</label>
+      <input type="date" style={inputStyle} value={lmp} onChange={(e) => setLmp(e.target.value)} />
+      <button style={btnStyle} onClick={calculate}>{t.pregnancy.calc}</button>
+      {result && (
+        <div style={resultBoxStyle}>
+          <div style={{ marginBottom: 8 }}>
+            <span style={labelStyle}>{t.pregnancy.dueDate}: </span>
+            <strong style={{ color: CONFIG.theme.accent }}>{result.dueDate}</strong>
+          </div>
+          <div style={{ marginBottom: 8 }}>
+            <span style={labelStyle}>{t.pregnancy.weeks}: </span>
+            <strong>{result.weeks}</strong>
+          </div>
+          <div style={{ marginBottom: 8 }}>
+            <span style={labelStyle}>{t.pregnancy.trimester}: </span>
+            <strong>{result.trimester}</strong>
+          </div>
+          <div>
+            <span style={labelStyle}>{t.pregnancy.daysLeft}: </span>
+            <strong>{result.daysLeft}</strong>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// -----------------------------
+// حاسبة الادخار / Savings Calculator
+// -----------------------------
+function SavingsCalculator({ t }) {
+  const [principal, setPrincipal] = useState(10000);
+  const [monthly, setMonthly] = useState(500);
+  const [rate, setRate] = useState(5);
+  const [years, setYears] = useState(10);
+  const [result, setResult] = useState(null);
+
+  function calculate() {
+    const P = parseFloat(principal) || 0;
+    const m = parseFloat(monthly) || 0;
+    const r = parseFloat(rate) / 100 / 12;
+    const n = parseInt(years) * 12;
+    if (!n) return;
+    let fv;
+    if (r === 0) fv = P + m * n;
+    else fv = P * Math.pow(1 + r, n) + m * ((Math.pow(1 + r, n) - 1) / r);
+    const totalDeposited = P + m * n;
+    setResult({
+      futureValue: fv,
+      totalDeposited,
+      totalInterest: fv - totalDeposited,
+    });
+  }
+
+  return (
+    <div style={cardStyle}>
+      <h2 style={{ fontSize: 18, marginBottom: 10 }}>{t.savings.title}</h2>
+      <p style={descStyle}>{t.savings.desc}</p>
+      <label style={labelStyle}>{t.savings.principal}</label>
+      <input type="number" style={inputStyle} value={principal} onChange={(e) => setPrincipal(e.target.value)} />
+      <label style={labelStyle}>{t.savings.monthly}</label>
+      <input type="number" style={inputStyle} value={monthly} onChange={(e) => setMonthly(e.target.value)} />
+      <label style={labelStyle}>{t.savings.rate}</label>
+      <input type="number" style={inputStyle} value={rate} onChange={(e) => setRate(e.target.value)} />
+      <label style={labelStyle}>{t.savings.years}</label>
+      <input type="number" style={inputStyle} value={years} onChange={(e) => setYears(e.target.value)} />
+      <button style={btnStyle} onClick={calculate}>{t.savings.calc}</button>
+      {result && (
+        <div style={resultBoxStyle}>
+          <div style={{ marginBottom: 8 }}>
+            <span style={labelStyle}>{t.savings.futureValue}: </span>
+            <strong style={{ color: CONFIG.theme.accent, fontSize: 20 }}>{formatNum(result.futureValue)}</strong>
+          </div>
+          <div style={{ marginBottom: 8 }}>
+            <span style={labelStyle}>{t.savings.totalDeposited}: </span>
+            <strong>{formatNum(result.totalDeposited)}</strong>
+          </div>
+          <div>
+            <span style={labelStyle}>{t.savings.totalInterest}: </span>
+            <strong style={{ color: CONFIG.theme.green }}>{formatNum(result.totalInterest)}</strong>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// -----------------------------
+// حاسبة تحويل العملات / Currency Calculator
+// -----------------------------
+function CurrencyCalculator({ t }) {
+  const [amount, setAmount] = useState(100);
+  const [rate, setRate] = useState(1);
+  const [result, setResult] = useState(null);
+
+  function calculate() {
+    const a = parseFloat(amount);
+    const r = parseFloat(rate);
+    if (isNaN(a) || isNaN(r)) return;
+    setResult(a * r);
+  }
+
+  return (
+    <div style={cardStyle}>
+      <h2 style={{ fontSize: 18, marginBottom: 10 }}>{t.currency.title}</h2>
+      <p style={descStyle}>{t.currency.desc}</p>
+      <label style={labelStyle}>{t.currency.amount}</label>
+      <input type="number" style={inputStyle} value={amount} onChange={(e) => setAmount(e.target.value)} />
+      <label style={labelStyle}>{t.currency.rate}</label>
+      <input type="number" style={inputStyle} value={rate} onChange={(e) => setRate(e.target.value)} />
+      <button style={btnStyle} onClick={calculate}>{t.currency.calc}</button>
+      {result != null && (
+        <div style={resultBoxStyle}>
+          <span style={labelStyle}>{t.currency.result}: </span>
+          <strong style={{ color: CONFIG.theme.accent, fontSize: 20 }}>{formatNum(result)}</strong>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// -----------------------------
+// حاسبة الضريبة VAT / VAT Calculator
+// -----------------------------
+function VatCalculator({ t }) {
+  const [mode, setMode] = useState(1);
+  const [price, setPrice] = useState(100);
+  const [rate, setRate] = useState(20);
+  const [result, setResult] = useState(null);
+
+  function calculate() {
+    const p = parseFloat(price);
+    const r = parseFloat(rate) / 100;
+    if (isNaN(p) || isNaN(r)) return;
+    if (mode === 1) {
+      const vatAmount = p * r;
+      setResult({ priceBefore: p, vatAmount, priceAfter: p + vatAmount });
+    } else {
+      const priceBefore = p / (1 + r);
+      const vatAmount = p - priceBefore;
+      setResult({ priceBefore, vatAmount, priceAfter: p });
+    }
+  }
+
+  return (
+    <div style={cardStyle}>
+      <h2 style={{ fontSize: 18, marginBottom: 10 }}>{t.vat.title}</h2>
+      <p style={descStyle}>{t.vat.desc}</p>
+      <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+        {[1, 2].map((m) => (
+          <button
+            key={m}
+            onClick={() => { setMode(m); setResult(null); }}
+            style={{
+              flex: 1,
+              padding: 10,
+              borderRadius: 8,
+              border: "none",
+              background: mode === m ? CONFIG.theme.accent : "#0B0E13",
+              color: mode === m ? "#fff" : CONFIG.theme.textMuted,
+              fontWeight: 600,
+              fontSize: 12,
+              cursor: "pointer",
+            }}
+          >
+            {m === 1 ? t.vat.mode1 : t.vat.mode2}
+          </button>
+        ))}
+      </div>
+      <label style={labelStyle}>{t.vat.price}</label>
+      <input type="number" style={inputStyle} value={price} onChange={(e) => setPrice(e.target.value)} />
+      <label style={labelStyle}>{t.vat.rate}</label>
+      <input type="number" style={inputStyle} value={rate} onChange={(e) => setRate(e.target.value)} />
+      <button style={btnStyle} onClick={calculate}>{t.vat.calc}</button>
+      {result && (
+        <div style={resultBoxStyle}>
+          <div style={{ marginBottom: 8 }}>
+            <span style={labelStyle}>{t.vat.priceBefore}: </span>
+            <strong>{formatNum(result.priceBefore)}</strong>
+          </div>
+          <div style={{ marginBottom: 8 }}>
+            <span style={labelStyle}>{t.vat.vatAmount}: </span>
+            <strong style={{ color: CONFIG.theme.red }}>{formatNum(result.vatAmount)}</strong>
+          </div>
+          <div>
+            <span style={labelStyle}>{t.vat.priceAfter}: </span>
+            <strong style={{ color: CONFIG.theme.accent, fontSize: 20 }}>{formatNum(result.priceAfter)}</strong>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// -----------------------------
 // حاسبات ذات صلة / Related calculators
 // -----------------------------
 const RELATED_CALCS = {
-  loan: ["mortgage", "percent", "bmr"],
-  mortgage: ["loan", "unit", "percent"],
-  bmi: ["bmr", "unit"],
-  bmr: ["bmi", "loan"],
-  percent: ["loan", "unit"],
-  unit: ["mortgage", "percent"],
+  loan: ["mortgage", "savings", "percent"],
+  mortgage: ["loan", "savings", "percent"],
+  bmi: ["bmr", "pregnancy"],
+  bmr: ["bmi", "pregnancy"],
+  percent: ["loan", "vat"],
+  unit: ["currency", "mortgage"],
+  pregnancy: ["bmi", "bmr"],
+  savings: ["loan", "mortgage"],
+  currency: ["unit", "vat"],
+  vat: ["percent", "currency"],
 };
 
 function RelatedCalculators({ current, t, onSelect }) {
@@ -832,7 +1153,7 @@ export default function App() {
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, marginBottom: 20 }}>
-          {["loan", "bmi", "percent", "bmr", "unit", "mortgage"].map((tb) => (
+          {["loan", "bmi", "percent", "bmr", "unit", "mortgage", "pregnancy", "savings", "currency", "vat"].map((tb) => (
             <button
               key={tb}
               onClick={() => setTab(tb)}
@@ -862,6 +1183,10 @@ export default function App() {
         {tab === "bmr" && <BMRCalculator t={t} />}
         {tab === "unit" && <UnitCalculator t={t} lang={lang} />}
         {tab === "mortgage" && <MortgageCalculator t={t} />}
+        {tab === "pregnancy" && <PregnancyCalculator t={t} />}
+        {tab === "savings" && <SavingsCalculator t={t} />}
+        {tab === "currency" && <CurrencyCalculator t={t} />}
+        {tab === "vat" && <VatCalculator t={t} />}
 
         <RelatedCalculators current={tab} t={t} onSelect={setTab} />
       </div>
